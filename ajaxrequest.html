@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head>
+    <title>Ajax Request</title>
+</head>
+<body>
+    <button id="button" style="margin:20px">Fetch image</button>
+    <div id="image-container" style="margin:20px">
+        <img id="dog-image" >
+    </div>
+     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+     <script type="text/javascript">
+
+        // simple AJAX REQUEST
+        function fetchimage(){
+            // generating new request
+            var request=new XMLHttpRequest();
+            // onloading the request
+            request.onload=function (){
+                // collecting response from server
+                var response=request.response;
+                console.log(response);
+                // converting to JSON object
+                var JSONresopnse=JSON.parse(response);
+                console.log(JSONresopnse);
+                // fetching URL
+                var imageURL=JSONresopnse.message;
+                console.log(imageURL);
+                // setting attribute of image tag
+                $('#dog-image').attr('src',imageURL);
+
+            }
+            request.onerror=function(){
+                console.log("error found");
+            }
+
+            // writing request
+            request.open('get','https://dog.ceo/api/breeds/imagee/random');
+            // sending request
+            request.send();
+            
+
+        // AJAX REQUEST USING JQUERY
+        // $.ajax({
+        //     url:'https://dog.ceo/api/breeds/imagee/random',
+        //     method:'get',
+        //     success:function(data){
+        //         var imageURL=data.message;
+        //         $('#dog-image').attr('src',imageURL);
+        //     }
+        // }).fail(function(){
+        //         console.log("error");
+        //     });
+        
+        // WHEN WE KNOW METHOD IS GET
+        // $.get('https://dog.ceo/api/breeds/imagee/random',function(data){
+        //         var imageURL=data.message;
+        //         $('#dog-image').attr('src',imageURL);
+        //     }).fail(function (xhr,textstatus,errorthrown){
+        //         console.log("error");
+        //     })
+          }
+
+
+
+
+
+         $('#button').click(fetchimage);
+     </script>
+</body>
+</html>

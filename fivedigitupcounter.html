@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<head>
+    <style type="text/css">
+        #outer{
+            background-image:linear-gradient(to right,skyblue,pink);
+            width:90%;
+            margin:auto;
+            padding:10px;
+            margin-top: 5%;
+        }
+        h1{
+            text-align: center;
+            color:white;
+            font-family: monospace;
+            letter-spacing: 2px;
+            word-spacing: 4px;
+        }
+        #inner{
+            display: flex;
+            justify-content: space-around;
+            flex-wrap:wrap;
+            margin:40px;
+        }
+        #counter{
+            background-color: grey;
+            width:60%;
+            margin:auto;
+            display: flex;
+            margin-top:5%;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding:50px;
+        }
+        #counter div{
+            height:70px;
+            width:70px;
+            margin:4px;
+            overflow: hidden;
+            position: relative;
+        }
+        input,button{
+            font-size: 1.3rem;
+            padding:10px;
+        }
+        button{
+            outline:none;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        #counter div p{
+            height:100%;
+            width:100%;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 10px 0px;
+            font-family: monospace;
+            font-weight: bold;
+            background-color: white;
+            border-top: 2px solid black;
+        }
+        .next{
+            position: absolute;
+            top:70px;
+        }
+        .animate{
+            transition: all 0.5s;
+            top:0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="outer">
+        <h1>Enter Value from 1 to 99999</h1>
+        <div id="inner">
+            <div>
+                <input type="text">
+            </div>
+            <div>
+                <button type="submit" id="start-button">Start Counter</button>
+            </div>
+        </div>
+    </div>
+    <div id="counter">
+        <div class="counter" id="first"> 
+            <p class="current">0</p>
+            <p class="next">1</p>   
+        </div>
+        <div class="counter" id="second">
+            <p class="current">0</p>
+            <p class="next">1</p> 
+        </div>
+        <div class="counter" id="third">
+            <p class="current">0</p>
+            <p class="next">1</p> 
+        </div>
+        <div class="counter" id="fourth">
+            <p class="current">0</p>
+            <p class="next">1</p> 
+        </div>
+        <div class="counter" id="fifth">
+            <p class="current">0</p>
+            <p class="next">1</p>  
+        </div>
+    </div>
+    <script type="text/javascript">
+         var id;
+         document.getElementById('start-button').addEventListener('click',function(event){
+             event.preventDefault();
+             var targetvalue=parseInt(document.getElementsByTagName('input')[0].value);
+             console.log(targetvalue);
+             if(isNaN(targetvalue))
+             {
+                 alert("Please enter the number");
+                 clearInterval(id);
+                 return;
+             }
+             if(targetvalue<1||targetvalue>99999)
+             {
+                 alert("Please enter number within range");
+                 clearInterval(id);
+                 return;
+             }
+             var currentvalue=0;
+             var currentNos=document.querySelectorAll('.counter .current');
+             // console.log("current numbers",currentNos);
+             var nextNos=document.querySelectorAll('.counter .next');
+             // console.log("next numbers",nextNos);
+             resetnumbers(currentNos,nextNos,5);
+             clearInterval(id);
+             id=setInterval(function(){
+                 if(currentvalue==targetvalue)
+                 {
+                     alert("counter reaches required value");
+                     clearInterval(id);
+                     return;
+                 }
+                 increasecount(currentNos,nextNos,4);
+                 currentvalue++;
+             },1000);
+
+         });
+         function resetnumbers(currentNos,nextNos,end){
+             for(let i=0;i<5;i++)
+             {
+                  currentNos[i].innerText=0;
+                  nextNos[i].innerText=1;
+             }
+             console.log("currentNos in reset",currentNos);
+             console.log("nextnos in reset",nextNos);
+         }
+         function increasecount(currentNos,nextNos,index)
+         {
+             let current=currentNos[index];
+             console.log("current",current);
+             let next=nextNos[index];
+             console.log("next",next);
+             if(current.innerText==9)
+             increasecount(currentNos,nextNos,index-1);
+             next.classList.add('animate');
+             setTimeout(function(){
+                 current.innerText=next.innerText;
+                 next.classList.remove('animate');
+                 next.innerText=parseInt(next.innerText)+1;
+                 if(next.innerText==10)
+                 next.innerText=0;
+             },500);
+         }
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+    <title>Upload Details</title>
+    <style type="text/css">
+        form {
+            width:40%;
+            height:100%;
+            padding: 5px;
+            display: inline-block;
+            border-right:2px solid lightgray;
+            
+        }
+        form > div{
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        button[type="submit"]{
+           display:block;
+           margin: auto; 
+           margin-top: 50px;
+           font-size:1.3rem;
+           cursor: pointer;
+           font-family: monospace;
+        }
+        form h1{
+            text-align: center;
+        }
+        label{
+            font-size: 1.3rem;
+        }
+        .items{
+            display: inline-block;
+            width:55%;
+            vertical-align: top;
+            margin-left: 2%;
+            
+        }
+        .item{
+            font-size: 1.3rem;
+            font-family: monospace;
+            margin-top: 15px;
+        }
+        .item:nth-child(2n){
+            background-color: lightgray;
+            padding:2px;
+        }
+        .highlight{
+            background-color: forestgreen;
+            padding:2px;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <form action="">
+        <h1>Add Student Data</h1>
+        <div>
+            <label for="rollno">Roll No.</label>
+            <input type="number" id="rollno" name="rollno">
+        </div>
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" >
+        </div>
+        <div>
+            <label for="marks">Marks</label>
+            <input type="number" id="marks" name="marks" >
+        </div>
+        <button type="submit">Add details</button>   
+    </form>
+    <div class="items">
+        <div class="item">
+            
+        </div>
+    </div><span class="highlight">
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+          $('button').click(function(event){
+               let rollno=$('#rollno').val();
+               let name=$('#name').val();
+               let marks=$('#marks').val();
+               event.preventDefault();
+               if(rollno==""||name==""||marks=="")
+                 alert("please enter all fields");
+               else
+               {
+                    $('.items').append('<div class="item">Roll no - <span class="highlight">'+rollno+' </span> , <span class="highlight">'+name+'</span> has got <span class="highlight">'+marks+'</span>  marks</div>');
+                    $('#rollno').val("");
+                    $('#name').val("");
+                    $('#marks').val("");
+               }
+            
+          });
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<head>
+    <style type="text/css">
+        #flexible{
+            margin:10px;
+            display: flex;
+            justify-content: space-around;
+            background-color: azure;
+            padding: 30px;
+        }
+        #image-container{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 4px;
+            margin-top: 10px;
+        }
+    </style> 
+</head>
+<body>
+    <div id="flexible">
+        <div id="breed-container">
+            <label for="breed">Breed: </label>
+            <select id="breed" name="breed">
+            </select>
+        </div>
+        <div id="get-image-button">
+            <button type="submit">Get Image</button>
+        </div>
+    </div>
+    <div id="image-container">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $.ajax({
+            url:'https://dog.ceo/api/breeds/list/all',
+            method:'get',
+            success:breedimage,
+        }).fail(function(){
+            console.log("error occured");
+        });
+        // function to append breed dropdown
+        function breedimage(data){
+            var breeds=data.message;
+            for(let breed in breeds)
+            {
+                $('#breed').append('<option>'+breed+'</option>');
+            }
+        }
+        // method change to introduce subbreed dropdown if subbreed of breed exists
+        $('#breed').change(function(data){
+            let value=$('#breed').val();
+            // api for finding subbreed
+            $.get('https://dog.ceo/api/breed/'+value+'/list',function(data){
+                if(data.message.length!==0)
+                {
+                    $('#flexible').append('<div id="subbreed-container"><select id="subbreed"></select></div>');
+                    for(let subbreed of data.message)
+                    {
+                        $('#subbreed').append('<option>'+subbreed+'</option>');
+                    }
+                }
+                else
+                {
+                    $('#subbreed-container').remove();
+                }
+                
+            })
+            
+        })
+        // display dog image
+        $('#get-image-button').click(function(){
+            $('#image-container div').remove();
+            let value=$('#breed').val();
+            console.log(value);
+            let subvalue=$('#subbreed').val();
+            console.log(subvalue);
+            if(subvalue!==undefined)
+            {
+                let url='https://dog.ceo/api/breed/'+value+'/'+subvalue+'/images';
+                $.get(url,function(data){
+                    for(let photo of data.message){
+                        $('#image-container').append('<div style="margin-bottom:20px"><img src="'+photo+'"style="height:300px;width:300px;"></div');
+                        }
+                    })
+                }
+                else
+                {
+                    $.get('https://dog.ceo/api/breed/'+value+'/images',function(data){
+                        for(let photo of data.message){
+                            $('#image-container').append('<div style="margin-bottom:20px"><img src="'+photo+'"style="height:300px;width:300px;"></div');
+                            }
+                        })
+                    }
+                })
+                
+                
+            </script>
+        </body>
+        </html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+    <title>Dog lovers</title>
+    <style type="text/css">
+       form{
+           height:30px;
+           width:98%;
+           display: flex;
+           justify-content: space-around;
+           margin-top: 30px;
+           background-color: azure;
+           padding:30px;
+       }
+       div {
+           margin-top:30px;
+           display: flex;
+           justify-content: space-around;
+       }
+       #dog-image{
+           height:300px;
+           width:300px;
+       }
+       button{
+           cursor: pointer;
+       }
+       button:hover{
+           box-shadow: 0px 0px 4px 4px aqua;
+       }
+       #next-image-button{
+            height:30px;
+            margin-top: 15%;
+       }
+
+    </style>
+</head>
+<body>
+         <form>
+             <select id="dog-breeds" name="breed">
+                 
+             </select>
+             <button id="get-image-button">Get Image</button>
+         </form>
+         <div>
+             <img id="dog-image">
+             <button id="next-image-button">Next Image</button> 
+         </div>
+        
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+         var flag=true;
+         // to make dropdown list in select
+         $.ajax({
+             url:'https://dog.ceo/api/breeds/list/all',
+             method:'get',
+             success:function(data){
+                 var breeds=data.message;
+                 for(let breed in breeds)
+                 {
+                     $('#dog-breeds').append('<option>'+breed+'</option>');
+                 }
+             }
+         });
+         // function to display image of selected breed only once      (get image)
+          $("#get-image-button").click(function(event){
+             event.preventDefault();
+             if(flag)
+             { 
+                 displaydog();
+                 flag=false;
+             }
+
+         })
+         // function to display image of selected breed many time      (next image)
+         $("#next-image-button").click(function(event){
+             event.preventDefault();
+             displaydog();
+         })
+         // method change to call if dropdown list change
+         $("#dog-breeds").change(function(){
+             flag=true;
+         });
+         
+         function displaydog(){
+            var value=$("#dog-breeds").val();
+             $.get('https://dog.ceo/api/breed/'+value+'/images/random',function(data){
+                 $('#dog-image').attr('src',data.message);
+                 console.log(data.message);
+             })
+         }
+
+    </script>
+</body>
+</html>

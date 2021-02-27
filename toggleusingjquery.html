@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <style type="text/css">
+       *{
+           transition-duration: 0.5s;
+       }
+    </style>
+</head>
+<body>
+    <div id ="outer">
+        <div id="inner">
+
+        </div>
+    </div>
+    <p>Toogle Using JQuery</p>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    var toggle="true";
+      $("p").css("fontSize","30px");
+      $("#outer").css({
+          height:"20px",
+          width:"100px",
+          "border-radius":"15px",
+          border:"2px solid",
+          padding:"2px"
+      }
+      )
+      $("#inner").css({
+          height:"20px",
+          width:"20px",
+          "border-radius":"50%",
+          "backgroundColor":"black"
+      }
+      )
+      $("#inner").click(function(){
+            if(toggle){
+               $('body').css("backgroundColor","black");
+               $('#inner').css({
+                   "marginLeft":"auto",
+                });
+               $("#outer").css("backgroundColor","white");
+               $('p').css("color","white");
+               toggle=false;
+            }
+            else{
+                $('body').css("backgroundColor","white");
+               $('p').css("color","black");
+               $('#inner').css({
+                   "marginLeft":"0px",
+                });
+               toggle=true;
+            }
+      }
+      )
+
+
+    </script>
+</body>
+</html>

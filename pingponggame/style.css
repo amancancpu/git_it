@@ -1,0 +1,63 @@
+body{
+    margin:0px;
+}
+#rod-one{
+    height:40px;
+    width:250px;
+    background-color: coral;
+    position: absolute;
+    top:0px;
+    padding:8px 0px;
+    text-align: center;
+    color:white;
+    margin: auto;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    box-sizing: border-box;
+    border:2px solid black;
+    letter-spacing: 1.5px;
+}
+#rod-two{
+    height:40px;
+    width:250px;
+    background-color:cornflowerblue;
+    margin: auto;
+    position: absolute;
+    bottom:0px;
+    padding:8px 0px;
+    letter-spacing: 1.5px;
+    text-align: center;
+    color:white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    box-sizing: border-box;
+    border:2px solid black;
+}
+#ball{
+    position: absolute;
+    top:40%;
+    height:50px;
+    width:50px;
+    border-radius: 50%;
+    background-image: radial-gradient(white -56%,crimson 90%);
+    
+}
+/* for ball going in north west direction */
+.animate-top-left{
+    transition: transform linear 0.5s;
+    transform: translateX(-200px) translateY(-200px);
+}
+.animate-top-right{
+    transition:transform linear 0.8s;
+    transform:translateX(100px) translateY(-100px);
+}
+.animate-bottom-left{
+    transition:transform linear 0.5s;
+    transform:translateX(-200px) translateY(200px);
+}
+.animate-bottom-right{
+    transition:transform linear 2s;
+    transform:translateX(200px) translateY(200px);
+}
